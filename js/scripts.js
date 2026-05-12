@@ -51,4 +51,15 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     });
 
+    // Fix Bootstrap modal aria-hidden focus warning:
+    // when a modal starts hiding, blur any focused descendant so that
+    // aria-hidden="true" isn't applied to an ancestor of the active element.
+    document.querySelectorAll('.modal').forEach(function (modalEl) {
+        modalEl.addEventListener('hide.bs.modal', function () {
+            if (modalEl.contains(document.activeElement)) {
+                document.activeElement.blur();
+            }
+        });
+    });
+
 });
